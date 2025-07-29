@@ -2,18 +2,23 @@ export function App() {
   return (
     <div>
       <h1>Bolisto App</h1>
-      <button>Submit</button>
-      <Card />
+      <Card task="Belajar React" />
+      <Card task="Buat Component" />
+      <Card task="Setup Project React" />
+      <Card task="Belajar JavaScript" />
+      <Card task="Buat Portfolio" />
     </div>
   );
 }
 
-export function Card() {
-  const name = "Ammar Ismail Khocan ";
+export function add(a: number, b: number) {
+  return a + b;
+}
 
+export function Card({ task }: { task: string }) {
   return (
     <div>
-      <h1>Nama saya : {name}</h1>
+      <h1>{task}</h1>
     </div>
   );
 }
