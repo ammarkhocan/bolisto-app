@@ -2,23 +2,39 @@ export function App() {
   return (
     <div>
       <h1>Bolisto App</h1>
-      <Card task="Belajar React" />
-      <Card task="Buat Component" />
-      <Card task="Setup Project React" />
-      <Card task="Belajar JavaScript" />
-      <Card task="Buat Portfolio" />
+      <Card task="To Do" todo />
+      <Card task="Doing" />
+      <Card task="Done" />
     </div>
   );
 }
 
-export function add(a: number, b: number) {
-  return a + b;
-}
+export function Card({ task, todo }: { task: string; todo?: boolean }) {
+  if (todo) {
+    return (
+      <div>
+        <h1>{task} 📋</h1>
+        <p>Update Web Portfolio</p>
+        <p>Belajar React</p>
+        <p>Belajar TypeScript</p>
+      </div>
+    );
+  }
 
-export function Card({ task }: { task: string }) {
+  if (task === "Done") {
+    return (
+      <div>
+        <h1>{task} ✅</h1>
+        <p>Setup Project React with Vite </p>
+        <p>Belajar JavaScript </p>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h1>{task}</h1>
+      <h1>{task} ⏳</h1>
+      <p>Buat Component</p>
     </div>
   );
 }
