@@ -1,19 +1,36 @@
+const taskList = [
+  { id: 1, title: "Todo", isTodoColumn: true },
+  { id: 2, title: "Doing", isTodoColumn: false },
+  { id: 3, title: "Done", isTodoColumn: false },
+];
+
 export function App() {
   return (
     <div>
       <h1>Bolisto App</h1>
-      <Card task="To Do" todo />
-      <Card task="Doing" />
-      <Card task="Done" />
+
+      <ul>
+        {taskList.map((column) => (
+          <li key={column.id}>
+            <Card title={column.title} isTodoColumn={column.isTodoColumn} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-export function Card({ task, todo }: { task: string; todo?: boolean }) {
-  if (todo) {
+export function Card({
+  title,
+  isTodoColumn,
+}: {
+  title: string;
+  isTodoColumn?: boolean;
+}) {
+  if (isTodoColumn) {
     return (
       <div>
-        <h1>{task} 📋</h1>
+        <h2>{title} 📋</h2>
         <p>Update Web Portfolio</p>
         <p>Belajar React</p>
         <p>Belajar TypeScript</p>
@@ -21,20 +38,21 @@ export function Card({ task, todo }: { task: string; todo?: boolean }) {
     );
   }
 
-  if (task === "Done") {
+  if (title === "Doing") {
     return (
       <div>
-        <h1>{task} ✅</h1>
-        <p>Setup Project React with Vite </p>
-        <p>Belajar JavaScript </p>
+        <h2>{title} ⏳</h2>
+        <p>Buat Komponen React</p>
+        <p>Buat Skripsi</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h1>{task} ⏳</h1>
-      <p>Buat Component</p>
+      <h2>{title} ✅</h2>
+      <p>Setup Project React dengan Vite</p>
+      <p>Belajar JavaScript</p>
     </div>
   );
 }
