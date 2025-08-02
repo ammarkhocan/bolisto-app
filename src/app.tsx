@@ -1,42 +1,60 @@
+const taskLists = [
+  {
+    id: 1,
+    title: "Todo",
+    icon: "📋",
+    tasks: ["Update Web Portfolio", "Belajar React", "Belajar TypeScript"],
+  },
+  {
+    id: 2,
+    title: "Doing",
+    icon: "⏳",
+    tasks: ["Buat Komponen React", "Buat Skripsi"],
+  },
+  {
+    id: 3,
+    title: "Done",
+    icon: "✅",
+    tasks: ["Setup Project React dengan Vite", "Belajar JavaScript"],
+  },
+];
+
 export function App() {
   return (
     <div>
       <h1>Bolisto App</h1>
-      <Card title="Todo" icon="📋" />
-      <Card title="Doing" icon="⏳" />
-      <Card title="Done" icon="✅" />
+      <ul>
+        {taskLists.map((taskList) => (
+          <li key={taskList.id}>
+            <Card
+              title={taskList.title}
+              icon={taskList.icon}
+              tasks={taskList.tasks}
+            />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-export function Card({ title, icon }: { title: string; icon: string }) {
+export function Card({
+  title,
+  icon,
+  tasks,
+}: {
+  title: string;
+  icon: string;
+  tasks: string[];
+}) {
   return (
     <div>
       <h2>
         {title} {icon}
       </h2>
-
-      {title === "Todo" && (
-        <div>
-          <p>Update Web Portfolio</p>
-          <p>Belajar React</p>
-          <p>Belajar TypeScript</p>
-        </div>
-      )}
-
-      {title === "Doing" && (
-        <div>
-          <p>Buat Komponen React</p>
-          <p>Buat Skripsi</p>
-        </div>
-      )}
-
-      {title === "Done" && (
-        <div>
-          <p>Setup Project React dengan Vite</p>
-          <p>Belajar JavaScript</p>
-        </div>
-      )}
+      {tasks.map((task, id) => (
+        <p key={id}>{task}</p>
+      ))}
     </div>
   );
 }
