@@ -62,11 +62,13 @@ export function Card({
       <h2>
         {title} {icon}
       </h2>
-      {tasks.map((task) => (
-        <li key={task.id}>
-          <p>{task.name}</p>
-        </li>
-      ))}
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id}>
+            <p>{task.name}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
