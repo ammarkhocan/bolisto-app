@@ -32,7 +32,7 @@ const taskLists = [
 export function App() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <div className="mb-8 text-center text-3xl font-bold text-blue-600">
+      <div className="mb-8 text-center text-3xl font-bold text-black">
         <h1>Bolisto App</h1>
       </div>
       <ul className="mx-auto flex max-w-6xl list-none flex-col gap-6 p-0 md:flex-row">
