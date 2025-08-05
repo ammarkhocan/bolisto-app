@@ -3,19 +3,29 @@ const taskLists = [
     id: 1,
     title: "Todo",
     icon: "📋",
-    tasks: ["Update Web Portfolio", "Belajar React", "Belajar TypeScript"],
+    tasks: [
+      { id: 1, name: "Update Web Portfolio" },
+      { id: 2, name: "Belajar React" },
+      { id: 3, name: "Belajar TypeScript" },
+    ],
   },
   {
     id: 2,
     title: "Doing",
     icon: "⏳",
-    tasks: ["Buat Komponen React", "Buat Skripsi"],
+    tasks: [
+      { id: 1, name: "Buat Komponen React" },
+      { id: 2, name: "Buat Skripsi" },
+    ],
   },
   {
     id: 3,
     title: "Done",
     icon: "✅",
-    tasks: ["Setup Project React dengan Vite", "Belajar JavaScript"],
+    tasks: [
+      { id: 1, name: "Setup Project React dengan Vite" },
+      { id: 2, name: "Belajar JavaScript" },
+    ],
   },
 ];
 
@@ -45,15 +55,17 @@ export function Card({
 }: {
   title: string;
   icon: string;
-  tasks: string[];
+  tasks: { id: number; name: string }[];
 }) {
   return (
     <div>
       <h2>
         {title} {icon}
       </h2>
-      {tasks.map((task, id) => (
-        <p key={id}>{task}</p>
+      {tasks.map((task) => (
+        <li key={task.id}>
+          <p>{task.name}</p>
+        </li>
       ))}
     </div>
   );
