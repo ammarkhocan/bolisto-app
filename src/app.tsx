@@ -1,6 +1,7 @@
 import { dataTaskLists } from "@/modules/task/data";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function App() {
   return (
@@ -45,11 +46,7 @@ export function List({
         {tasks.map((task) => (
           <li key={task.id}>
             {/* TODO: Card */}
-            <div>
-              <p className="cursor-pointer rounded border-l-4 border-red-400 bg-gray-50 p-3 transition-colors hover:bg-gray-100">
-                {task.name}
-              </p>
-            </div>
+            <TaskCard name={task.name} />
           </li>
         ))}
       </ul>
@@ -65,3 +62,12 @@ export function List({
 }
 
 // TODO: Card component
+export function TaskCard({ name }: { name: string }) {
+  return (
+    <Card className="border-border/60 bg-card border border-l-4 border-l-red-400 transition hover:shadow-sm">
+      <CardContent className="p-1">
+        <p className="text-card-foreground cursor-pointer text-sm">{name}</p>
+      </CardContent>
+    </Card>
+  );
+}
