@@ -6,10 +6,12 @@ export function BoardList({
   title,
   icon,
   tasks,
+  onAddTask,
 }: {
   title: string;
   icon: string;
   tasks: { id: number; name: string }[];
+  onAddTask?: () => void;
 }) {
   return (
     <div className="h-fit rounded-lg bg-white p-4 shadow-md">
@@ -26,7 +28,7 @@ export function BoardList({
       </ul>
 
       <div className="pt-4">
-        <Button variant="ghost">
+        <Button variant="ghost" onClick={onAddTask}>
           <PlusIcon />
           Add a card
         </Button>
