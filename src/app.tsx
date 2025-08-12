@@ -1,7 +1,7 @@
 import { BoardList } from "@/modules/components/board-list";
 import { dataTaskLists } from "@/modules/task/data";
 import { useState } from "react";
-import { Button } from "./components/ui/button";
+import { Button } from "@/components/ui/button";
 
 export function App() {
   const [taskLists, setTaskLists] = useState(dataTaskLists);
