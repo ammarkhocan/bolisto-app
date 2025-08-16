@@ -8,7 +8,7 @@ export function App() {
 
   const addTask = (boardId: number) => {
     const newTask = {
-      id: taskLists.length + 1,
+      id: Date.now(),
       name: "New Task",
     };
 
@@ -22,8 +22,8 @@ export function App() {
     setTaskLists(newTaskLists);
   };
 
-  // Fungsi untuk delete task
   const deleteTask = (boardId: number, taskId: number) => {
+    console.log(`Menghapus task ID: ${taskId} dari board ID: ${boardId}`);
     const newTaskLists = taskLists.map((board) => {
       if (board.id === boardId) {
         const newTasks = board.tasks.filter((task) => task.id !== taskId);
@@ -42,7 +42,7 @@ export function App() {
 
   const addTaskList = () => {
     const newTaskList = {
-      id: taskLists.length + 1,
+      id: Date.now(),
       title: "New Todo",
       icon: "",
       tasks: [],

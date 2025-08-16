@@ -35,7 +35,7 @@ export function BoardList({
           <p>📝</p>
           <p className="text-sm text-gray-500">No tasks in this board</p>
           <p className="mt-1 text-xs text-gray-400">
-            Click "Add a card" to create your first task
+            Click "Add a Task" to create your first task
           </p>
         </div>
       ) : (
@@ -54,7 +54,7 @@ export function BoardList({
       <div className="pt-4">
         <Button variant="ghost" onClick={onAddTask}>
           <PlusIcon />
-          Add a card
+          Add a Task
         </Button>
       </div>
     </div>
