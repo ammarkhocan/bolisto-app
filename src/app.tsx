@@ -133,7 +133,7 @@ export function App() {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button type="submit">Add Board</Button>
+                <Button type="submit">Add Board List</Button>
               </DialogFooter>
             </form>
           </DialogContent>
