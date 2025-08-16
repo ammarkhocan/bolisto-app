@@ -19,6 +19,8 @@ export function App() {
   const [taskLists, setTaskLists] = useState(dataTaskLists);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  console.log(taskLists);
+
   const addTask = (boardId: number) => {
     const totalTasks = taskLists.reduce(
       (total, board) => total + board.tasks.length,
@@ -75,7 +77,7 @@ export function App() {
     }
 
     const newTaskList = {
-      id: taskLists.length + 1,
+      id: taskLists[taskLists.length - 1]?.id + 1 || 1,
       title: boardTitle,
       icon: boardIcon || "📋",
       tasks: [],
