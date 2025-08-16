@@ -30,16 +30,26 @@ export function BoardList({
         </SquareX>
       </h2>
 
-      <ul className="list-none space-y-2 p-0">
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <TaskCard
-              name={task.name}
-              onDelete={() => onDeleteTask?.(task.id)}
-            />
-          </li>
-        ))}
-      </ul>
+      {tasks.length === 0 ? (
+        <div className="mb-4 py-6 text-center">
+          <p>📝</p>
+          <p className="text-sm text-gray-500">No tasks in this board</p>
+          <p className="mt-1 text-xs text-gray-400">
+            Click "Add a card" to create your first task
+          </p>
+        </div>
+      ) : (
+        <ul className="list-none space-y-2 p-0">
+          {tasks.map((task) => (
+            <li key={task.id}>
+              <TaskCard
+                name={task.name}
+                onDelete={() => onDeleteTask?.(task.id)}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
 
       <div className="pt-4">
         <Button variant="ghost" onClick={onAddTask}>
