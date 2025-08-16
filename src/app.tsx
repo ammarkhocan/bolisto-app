@@ -2,19 +2,39 @@ import { BoardList } from "@/modules/components/board-list";
 import { dataTaskLists } from "@/modules/task/data";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export function App() {
   const [taskLists, setTaskLists] = useState(dataTaskLists);
 
   const addTask = (boardId: number) => {
+    const totalTasks = taskLists.reduce(
+      (total, board) => total + board.tasks.length,
+      0,
+    );
+
     const newTask = {
-      id: Date.now(),
+      id: totalTasks + 1,
       name: "New Task",
     };
 
     const newTaskLists = taskLists.map((board) => {
       if (board.id === boardId) {
-        return { ...board, tasks: [...board.tasks, newTask] };
+        return {
+          ...board,
+          tasks: [...board.tasks, newTask],
+        };
       }
       return board;
     });
@@ -23,11 +43,13 @@ export function App() {
   };
 
   const deleteTask = (boardId: number, taskId: number) => {
-    console.log(`Menghapus task ID: ${taskId} dari board ID: ${boardId}`);
     const newTaskLists = taskLists.map((board) => {
       if (board.id === boardId) {
         const newTasks = board.tasks.filter((task) => task.id !== taskId);
-        return { ...board, tasks: newTasks };
+        return {
+          ...board,
+          tasks: newTasks,
+        };
       }
       return board;
     });
@@ -40,15 +62,26 @@ export function App() {
     setTaskLists(newTaskLists);
   };
 
-  const addTaskList = () => {
+  const handleAddBoardList = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const boardTitle = formData.get("board-title")?.toString().trim();
+    const boardIcon = formData.get("board-icon")?.toString().trim();
+
+    if (!boardTitle) {
+      return;
+    }
+
     const newTaskList = {
-      id: Date.now(),
-      title: "New Todo",
-      icon: "",
+      id: taskLists.length + 1,
+      title: boardTitle,
+      icon: boardIcon || "📋",
       tasks: [],
     };
 
     setTaskLists([...taskLists, newTaskList]);
+    event.currentTarget.reset();
   };
 
   return (
@@ -56,8 +89,55 @@ export function App() {
       <section className="mb-8 text-center text-3xl font-bold text-black">
         <h1>Bolisto App</h1>
 
-        <Button onClick={addTaskList}>Add Another List</Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>Add Another List</Button>
+          </DialogTrigger>
+
+          <DialogContent className="sm:max-w-[425px]">
+            <form onSubmit={handleAddBoardList}>
+              <DialogHeader>
+                <DialogTitle>Add New Board List</DialogTitle>
+                <DialogDescription>
+                  Create a new board List with your preferred name and icon.
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="grid gap-4 py-4">
+                <div className="grid gap-3">
+                  <Label htmlFor="board-title">Board List Name</Label>
+                  <Input
+                    id="board-title"
+                    name="board-title"
+                    placeholder="Example: In Progress, Review, Done"
+                    required
+                    autoFocus
+                  />
+                </div>
+
+                <div className="grid gap-3">
+                  <Label htmlFor="board-icon">Board List Icon (optional)</Label>
+                  <Input
+                    id="board-icon"
+                    name="board-icon"
+                    placeholder="Example: 🚀, ⏳, ✅, 📝"
+                  />
+                </div>
+              </div>
+
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="outline" type="button">
+                    Cancel
+                  </Button>
+                </DialogClose>
+                <Button type="submit">Add Board</Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
       </section>
+
       <section className="space-y-4">
         {taskLists.length === 0 ? (
           <div className="py-12 text-center">
