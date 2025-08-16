@@ -1,7 +1,7 @@
 import { BoardList } from "@/modules/components/board-list";
 import { dataTaskLists } from "@/modules/task/data";
 import { useState } from "react";
-import { Button } from "./components/ui/button";
+import { Button } from "@/components/ui/button";
 
 export function App() {
   const [taskLists, setTaskLists] = useState(dataTaskLists);
@@ -19,6 +19,24 @@ export function App() {
       return board;
     });
 
+    setTaskLists(newTaskLists);
+  };
+
+  // Fungsi untuk delete task
+  const deleteTask = (boardId: number, taskId: number) => {
+    const newTaskLists = taskLists.map((board) => {
+      if (board.id === boardId) {
+        const newTasks = board.tasks.filter((task) => task.id !== taskId);
+        return { ...board, tasks: newTasks };
+      }
+      return board;
+    });
+
+    setTaskLists(newTaskLists);
+  };
+
+  const deleteBoard = (boardId: number) => {
+    const newTaskLists = taskLists.filter((board) => board.id !== boardId);
     setTaskLists(newTaskLists);
   };
 
@@ -50,6 +68,8 @@ export function App() {
                 icon={taskList.icon}
                 tasks={taskList.tasks}
                 onAddTask={() => addTask(taskList.id)}
+                onDeleteBoard={() => deleteBoard(taskList.id)}
+                onDeleteTask={(taskId) => deleteTask(taskList.id, taskId)}
               />
             </li>
           ))}
