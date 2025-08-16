@@ -58,22 +58,35 @@ export function App() {
 
         <Button onClick={addTaskList}>Add Another List</Button>
       </section>
-
       <section className="space-y-4">
-        <ul className="mx-auto flex max-w-6xl list-none flex-col gap-6 p-0 md:flex-row">
-          {taskLists.map((taskList) => (
-            <li key={taskList.id} className="flex-1">
-              <BoardList
-                title={taskList.title}
-                icon={taskList.icon}
-                tasks={taskList.tasks}
-                onAddTask={() => addTask(taskList.id)}
-                onDeleteBoard={() => deleteBoard(taskList.id)}
-                onDeleteTask={(taskId) => deleteTask(taskList.id, taskId)}
-              />
-            </li>
-          ))}
-        </ul>
+        {taskLists.length === 0 ? (
+          <div className="py-12 text-center">
+            <div className="mx-auto max-w-md rounded-lg bg-white p-8 shadow-md">
+              <h2 className="mb-4 text-xl font-semibold text-gray-700">
+                📝 Empty Board List
+              </h2>
+              <p className="mb-6 text-gray-500">
+                No boards have been created yet. Click the "Add Another List"
+                button to create your first board!
+              </p>
+            </div>
+          </div>
+        ) : (
+          <ul className="mx-auto flex max-w-6xl list-none flex-col gap-6 p-0 md:flex-row">
+            {taskLists.map((taskList) => (
+              <li key={taskList.id} className="flex-1">
+                <BoardList
+                  title={taskList.title}
+                  icon={taskList.icon}
+                  tasks={taskList.tasks}
+                  onAddTask={() => addTask(taskList.id)}
+                  onDeleteBoard={() => deleteBoard(taskList.id)}
+                  onDeleteTask={(taskId) => deleteTask(taskList.id, taskId)}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </div>
   );
