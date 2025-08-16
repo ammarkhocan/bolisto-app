@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 
 export function App() {
   const [taskLists, setTaskLists] = useState(dataTaskLists);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const addTask = (boardId: number) => {
     const totalTasks = taskLists.reduce(
@@ -82,6 +83,7 @@ export function App() {
 
     setTaskLists([...taskLists, newTaskList]);
     event.currentTarget.reset();
+    setIsDialogOpen(false);
   };
 
   return (
@@ -89,7 +91,7 @@ export function App() {
       <section className="mb-8 text-center text-3xl font-bold text-black">
         <h1>Bolisto App</h1>
 
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button>Add Another List</Button>
           </DialogTrigger>
