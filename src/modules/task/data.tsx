@@ -3,6 +3,7 @@ export type Task = {
   name: string;
 };
 
+// same with Boards
 export type DataTaskList = {
   id: number;
   title: string;
