@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { TaskCard } from "@/modules/components/task-card";
-import { SquareX } from "lucide-react";
+import { Trash } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 export function BoardList({
   title,
@@ -22,12 +23,12 @@ export function BoardList({
     <div className="h-fit rounded-lg bg-white p-4 shadow-md">
       <h2 className="mb-4 flex items-center gap-2 border-b pb-2 text-lg font-semibold text-gray-800">
         {title} <span className="text-xl">{icon}</span>
-        <SquareX
+        <Trash
           className="ml-auto cursor-pointer text-gray-500 hover:text-red-500"
           onClick={onDeleteBoard}
         >
           Delete
-        </SquareX>
+        </Trash>
       </h2>
 
       {tasks.length === 0 ? (
@@ -52,6 +53,7 @@ export function BoardList({
       )}
 
       <div className="pt-4">
+        <Input type="name" placeholder="Add a Task" />
         <Button variant="ghost" onClick={onAddTask}>
           <PlusIcon />
           Add a Task
