@@ -86,7 +86,7 @@ export function App() {
     }
 
     const newBoard = {
-      id: boards.length + 1,
+      id: boards[boards.length - 1].id + 1,
       title: boardTitle,
       icon: boardIcon || "📋",
       tasks: [],

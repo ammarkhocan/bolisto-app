@@ -1,7 +1,23 @@
+import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+
 export function Counter() {
+  const [count, setCount] = useState(() => {
+    const storedCount = localStorage.getItem("count");
+    return storedCount ? Number(storedCount) : 0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("count", JSON.stringify(count));
+  }, [count]);
+
   return (
-    <div className="flex-col items-center justify-center bg-gray-500 p-3">
-      <h1 className="text-3xl font-bold text-black">Halaman Counter</h1>
+    <div>
+      <p>Count: {count}</p>
+
+      <Button onClick={() => setCount((prevCount) => prevCount + 1)}>
+        Increment
+      </Button>
     </div>
   );
 }
