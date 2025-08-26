@@ -1,6 +1,6 @@
 import { BoardList } from "@/modules/components/board-list";
-import { dataTaskLists } from "@/modules/task/data";
-import React, { useState } from "react";
+import { dataTaskLists, type BoardLists } from "@/modules/task/data";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,9 +16,21 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export function App() {
-  const [boards, setBoardLists] = useState(dataTaskLists);
+  // const [boards, setBoardLists] = useState(dataTaskLists);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const [boards, setBoardLists] = useState(() => {
+    const storedBoards = localStorage.getItem("boards");
+    return storedBoards
+      ? (JSON.parse(storedBoards) as BoardLists[])
+      : dataTaskLists;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("boards", JSON.stringify(boards));
+  }, [boards]);
+  //
+  console.log({ boards });
   const addTask = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
