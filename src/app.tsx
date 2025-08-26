@@ -99,7 +99,7 @@ export function App() {
     }
 
     const newBoard = {
-      id: boards[boards.length - 1].id + 1,
+      id: boards.length > 0 ? boards[boards.length - 1].id + 1 : 1,
       title: boardTitle,
       icon: boardIcon || "📋",
       tasks: [],
