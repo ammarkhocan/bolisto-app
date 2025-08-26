@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export function App() {
-  const [taskLists, setTaskLists] = useState(dataTaskLists);
+  const [boards, setBoardLists] = useState(dataTaskLists);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const addTask = (event: React.FormEvent<HTMLFormElement>) => {
@@ -30,7 +30,7 @@ export function App() {
     const name = formData.get("name")?.toString();
     if (!name) return;
 
-    const totalTasks = taskLists.reduce(
+    const totalTasks = boards.reduce(
       (total, board) => total + board.tasks.length,
       0,
     );
@@ -40,7 +40,7 @@ export function App() {
       name: name,
     };
 
-    const newTaskLists = taskLists.map((board) => {
+    const newTaskLists = boards.map((board) => {
       if (board.id === boardId) {
         return {
           ...board,
@@ -50,12 +50,12 @@ export function App() {
       return board;
     });
 
-    setTaskLists(newTaskLists);
+    setBoardLists(newTaskLists);
     event.currentTarget.reset();
   };
 
   const deleteTask = (boardId: number, taskId: number) => {
-    const newTaskLists = taskLists.map((board) => {
+    const newTaskLists = boards.map((board) => {
       if (board.id === boardId) {
         const newTasks = board.tasks.filter((task) => task.id !== taskId);
         return {
@@ -66,12 +66,12 @@ export function App() {
       return board;
     });
 
-    setTaskLists(newTaskLists);
+    setBoardLists(newTaskLists);
   };
 
   const deleteBoard = (boardId: number) => {
-    const newTaskLists = taskLists.filter((board) => board.id !== boardId);
-    setTaskLists(newTaskLists);
+    const newTaskLists = boards.filter((board) => board.id !== boardId);
+    setBoardLists(newTaskLists);
   };
 
   const handleAddBoardList = (event: React.FormEvent<HTMLFormElement>) => {
@@ -85,14 +85,14 @@ export function App() {
       return;
     }
 
-    const newTaskList = {
-      id: taskLists.length + 1,
+    const newBoard = {
+      id: boards.length + 1,
       title: boardTitle,
       icon: boardIcon || "📋",
       tasks: [],
     };
 
-    setTaskLists([...taskLists, newTaskList]);
+    setBoardLists([...boards, newBoard]);
     event.currentTarget.reset();
     setIsDialogOpen(false);
   };
@@ -152,7 +152,7 @@ export function App() {
       </section>
 
       <section className="space-y-4">
-        {taskLists.length === 0 ? (
+        {boards.length === 0 ? (
           <div className="py-12 text-center">
             <div className="mx-auto max-w-md rounded-lg bg-white p-8 shadow-md">
               <h2 className="mb-4 text-xl font-semibold text-gray-700">
@@ -166,7 +166,7 @@ export function App() {
           </div>
         ) : (
           <ul className="mx-auto flex max-w-6xl list-none flex-col gap-6 p-0 md:flex-row">
-            {taskLists.map((board) => (
+            {boards.map((board) => (
               <li key={board.id} className="flex-1">
                 <BoardList
                   boardId={board.id}

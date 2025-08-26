@@ -3,14 +3,14 @@ export type Task = {
   name: string;
 };
 
-export type DataTaskList = {
+export type BoardLists = {
   id: number;
   title: string;
   icon: string;
   tasks: Task[];
 };
 
-export const dataTaskLists: DataTaskList[] = [
+export const dataTaskLists: BoardLists[] = [
   {
     id: 1,
     title: "Todo",
