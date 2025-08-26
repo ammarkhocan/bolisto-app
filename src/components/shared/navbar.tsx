@@ -24,6 +24,14 @@ export function Navbar() {
             About
           </Link>
         </li>
+        <li>
+          <Link
+            to="/counter"
+            className="font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
+          >
+            Counter
+          </Link>
+        </li>
       </ul>
     </nav>
   );

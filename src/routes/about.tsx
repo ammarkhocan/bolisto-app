@@ -1,7 +1,7 @@
 export function About() {
   return (
     <div>
-      <h1>Halama About</h1>
+      <h1>Halaman About</h1>
     </div>
   );
 }
