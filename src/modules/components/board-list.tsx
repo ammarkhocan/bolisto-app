@@ -3,8 +3,10 @@ import { PlusIcon } from "lucide-react";
 import { TaskCard } from "@/modules/components/task-card";
 import { Trash } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import type React from "react";
 
 export function BoardList({
+  boardId,
   title,
   icon,
   tasks,
@@ -12,10 +14,11 @@ export function BoardList({
   onDeleteBoard,
   onDeleteTask,
 }: {
+  boardId: number;
   title: string;
   icon: string;
   tasks: { id: number; name: string }[];
-  onAddTask?: () => void;
+  onAddTask: (event: React.FormEvent<HTMLFormElement>) => void;
   onDeleteBoard?: () => void;
   onDeleteTask?: (taskId: number) => void;
 }) {
@@ -53,11 +56,14 @@ export function BoardList({
       )}
 
       <div className="pt-4">
-        <Input type="name" placeholder="Add a Task" />
-        <Button variant="ghost" onClick={onAddTask}>
-          <PlusIcon />
-          Add a Task
-        </Button>
+        <form action="post" onSubmit={onAddTask}>
+          <input type="hidden" name="boardId" defaultValue={boardId} />
+          <Input type="text" name="name" placeholder="Add a Task" />
+          <Button variant="ghost" type="submit">
+            <PlusIcon />
+            Add a Task
+          </Button>
+        </form>
       </div>
     </div>
   );

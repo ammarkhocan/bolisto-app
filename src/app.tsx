@@ -1,6 +1,6 @@
 import { BoardList } from "@/modules/components/board-list";
 import { dataTaskLists } from "@/modules/task/data";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,7 +19,17 @@ export function App() {
   const [taskLists, setTaskLists] = useState(dataTaskLists);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const addTask = (boardId: number) => {
+  const addTask = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+
+    const boardId = Number(formData.get("boardId"));
+    if (!boardId) return;
+
+    const name = formData.get("name")?.toString();
+    if (!name) return;
+
     const totalTasks = taskLists.reduce(
       (total, board) => total + board.tasks.length,
       0,
@@ -27,7 +37,7 @@ export function App() {
 
     const newTask = {
       id: totalTasks + 1,
-      name: "New Task",
+      name: name,
     };
 
     const newTaskLists = taskLists.map((board) => {
@@ -41,6 +51,7 @@ export function App() {
     });
 
     setTaskLists(newTaskLists);
+    event.currentTarget.reset();
   };
 
   const deleteTask = (boardId: number, taskId: number) => {
@@ -155,15 +166,16 @@ export function App() {
           </div>
         ) : (
           <ul className="mx-auto flex max-w-6xl list-none flex-col gap-6 p-0 md:flex-row">
-            {taskLists.map((taskList) => (
-              <li key={taskList.id} className="flex-1">
+            {taskLists.map((board) => (
+              <li key={board.id} className="flex-1">
                 <BoardList
-                  title={taskList.title}
-                  icon={taskList.icon}
-                  tasks={taskList.tasks}
-                  onAddTask={() => addTask(taskList.id)}
-                  onDeleteBoard={() => deleteBoard(taskList.id)}
-                  onDeleteTask={(taskId) => deleteTask(taskList.id, taskId)}
+                  boardId={board.id}
+                  title={board.title}
+                  icon={board.icon}
+                  tasks={board.tasks}
+                  onAddTask={addTask}
+                  onDeleteBoard={() => deleteBoard(board.id)}
+                  onDeleteTask={(taskId) => deleteTask(board.id, taskId)}
                 />
               </li>
             ))}
