@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ScrollArea, ScrollBar } from "./components/ui/scroll-area";
 
 export function App() {
   // const [boards, setBoardLists] = useState(dataTaskLists);
@@ -177,21 +178,24 @@ export function App() {
             </div>
           </div>
         ) : (
-          <ul className="mx-auto flex max-w-6xl list-none flex-col gap-6 p-0 md:flex-row">
-            {boards.map((board) => (
-              <li key={board.id} className="flex-1">
-                <BoardList
-                  boardId={board.id}
-                  title={board.title}
-                  icon={board.icon}
-                  tasks={board.tasks}
-                  onAddTask={addTask}
-                  onDeleteBoard={() => deleteBoard(board.id)}
-                  onDeleteTask={(taskId) => deleteTask(board.id, taskId)}
-                />
-              </li>
-            ))}
-          </ul>
+          <ScrollArea className="w-full max-w-7xl whitespace-nowrap">
+            <ul className="mx-auto flex list-none flex-col gap-6 p-0 md:flex-row">
+              {boards.map((board) => (
+                <li key={board.id} className="w-xs">
+                  <BoardList
+                    boardId={board.id}
+                    title={board.title}
+                    icon={board.icon}
+                    tasks={board.tasks}
+                    onAddTask={addTask}
+                    onDeleteBoard={() => deleteBoard(board.id)}
+                    onDeleteTask={(taskId) => deleteTask(board.id, taskId)}
+                  />
+                </li>
+              ))}
+            </ul>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         )}
       </section>
     </div>
