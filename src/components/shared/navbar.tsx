@@ -4,7 +4,7 @@ export function Navbar() {
   return (
     <nav className="flex items-center gap-10 border-b border-gray-200 bg-white px-6 py-4 shadow-sm">
       <h1 className="text-2xl font-bold text-gray-800">
-        <Link to="/">📌BOlISTO</Link>
+        <Link to="/">📌BOLISTO</Link>
       </h1>
 
       <ul className="flex space-x-8">

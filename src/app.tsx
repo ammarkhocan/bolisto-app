@@ -178,10 +178,10 @@ export function App() {
             </div>
           </div>
         ) : (
-          <ScrollArea className="mx-auto w-full max-w-7xl items-center p-2 whitespace-nowrap">
+          <ScrollArea className="mx-auto w-full max-w-7xl items-center whitespace-nowrap">
             <ul className="mx-auto flex list-none flex-col gap-6 p-0 md:flex-row">
               {boards.map((board) => (
-                <li key={board.id} className="w-xs p-3">
+                <li key={board.id} className="w-xs py-6">
                   <BoardList
                     boardId={board.id}
                     title={board.title}
